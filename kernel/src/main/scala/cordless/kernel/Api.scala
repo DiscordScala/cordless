@@ -1,9 +1,9 @@
-package cordless
+package cordless.kernel
 
-import model._
+import cordless.model._
 import spire.math.ULong
 
-trait Discord[F[_]] {
+trait Api[F[_]] {
 
   def getChannel(id: F[ULong]): F[Channel]
   def modifyChannel(id: F[ULong], modification: F[ChannelPatch]): F[Channel]
