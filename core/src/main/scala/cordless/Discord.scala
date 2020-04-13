@@ -1,18 +1,24 @@
 package cordless
 
 import cats.effect.{Resource, Sync}
+import cats.tagless._
 import org.http4s.client.{Client => Http}
 import org.http4s.client.jdkhttpclient.{WSClient => Ws}
 
-trait Discord[F[_]] {
+@finalAlg
+@autoInvariantK
+trait Discord[F[_]] extends kernel.Api[F] {
 
-  def api: F[kernel.Api[F]]
-  def gateway: F[Resource[F, kernel.Gateway[fs2.Stream[F, *]]]]
+  def gateway: Discord.GW[F]
+
+  def login(gateway: Discord.GW[F]): F[Unit]
 
 }
 
 object Discord {
 
-  def apply[F[_]](token: String)(http: Http[F], ws: Ws[F])(s: Sync[F]): Discord[F] = ???
+  private type GW[F[_]] = F[Resource[F, kernel.Gateway[fs2.Stream[F, *]]]]
+
+  def apply[F[_]](token: String, http: Http[F], ws: Ws[F])(implicit s: Sync[F]): Discord[F] = ???
 
 }

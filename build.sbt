@@ -5,6 +5,7 @@ lazy val kernel = (project in file("kernel")).settings(
   scalaVersion := "2.13.1",
   libraryDependencies ++= Seq(
     "org.typelevel" %% "spire" % "0.17.0-M1",
+    "org.typelevel" %% "cats-tagless-macros" % "0.11",
   ),
 )
 

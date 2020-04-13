@@ -1,8 +1,11 @@
 package cordless.kernel
 
+import cats.tagless.{autoInvariantK, finalAlg}
 import cordless.model._
 import spire.math.ULong
 
+@finalAlg
+@autoInvariantK
 trait Api[F[_]] {
 
   def getChannel(id: F[ULong]): F[Channel]
