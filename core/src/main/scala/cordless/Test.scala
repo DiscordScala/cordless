@@ -10,7 +10,7 @@ object Test extends IOApp {
     s.delay(StdIn.readLine("Token? "))
 
   def program[F[_]](implicit d: Discord[F]): F[Unit] = {
-    d.login(d.gateway)
+    d.receive.through(d.send).compile.drain
   }
 
   override def run(args: List[String]): IO[ExitCode] = {
